@@ -10,3 +10,25 @@ document.getElementById('send').addEventListener('click', function () {
   if (v('access')) lines.push('Access/handling: ' + v('access'));
   window.open('https://wa.me/27633549336?text=' + encodeURIComponent(lines.join('\n')), '_blank', 'noopener');
 });
+
+// Match the nav background to the logo's own background colour.
+(function () {
+  var src = document.querySelector('.logo img').src;
+  var probe = new Image();
+  probe.crossOrigin = 'anonymous';
+  probe.onload = function () {
+    try {
+      var c = document.createElement('canvas');
+      c.width = probe.naturalWidth; c.height = probe.naturalHeight;
+      var x = c.getContext('2d');
+      x.drawImage(probe, 0, 0);
+      var p = x.getImageData(2, 2, 1, 1).data;
+      if (p[3] < 200) return; // transparent corner: keep the default white
+      var lum = (0.299 * p[0] + 0.587 * p[1] + 0.114 * p[2]) / 255;
+      var root = document.documentElement.style;
+      root.setProperty('--nav-bg', 'rgb(' + p[0] + ',' + p[1] + ',' + p[2] + ')');
+      root.setProperty('--nav-ink', lum < 0.5 ? '#ffffff' : '#161b24');
+    } catch (e) { /* image blocked from sampling: keep the default */ }
+  };
+  probe.src = src;
+})();
