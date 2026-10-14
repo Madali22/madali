@@ -116,3 +116,8 @@ textarea{min-height:92px;resize:vertical}
 .cinfo b{display:block;font:700 1.15rem var(--display);letter-spacing:.04em}
 footer{background:var(--asphalt);color:var(--on-dark-muted);padding:26px 0;font-size:.9rem}
 footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+/* logo image */
+.logo{display:flex;align-items:center;background:#fff;padding:4px 10px;border-radius:4px}
+.logo img{display:block;height:46px;width:auto;max-width:190px;object-fit:contain}
+@media(max-width:420px){.logo img{height:38px;max-width:150px}}
